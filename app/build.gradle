@@ -1,0 +1,119 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.0"
+
+    defaultConfig {
+        applicationId "com.lifecompany"
+        minSdkVersion 19
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+
+            versionNameSuffix '-dev'
+            applicationIdSuffix '.dev'
+            buildConfigField 'String', 'API_SERVER', '"http://megakohz.bget.ru/test_task/"'
+        }
+
+        release {
+            versionNameSuffix '-release'
+            minifyEnabled false
+
+            buildConfigField 'String', 'API_SERVER', '"http://megakohz.bget.ru/test_task/"'
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
+    kotlinOptions { jvmTarget = "1.8" }
+}
+
+androidExtensions {
+    experimental = true
+}
+
+ext {
+    androidX = '1.2.0-beta01'
+    constraint = '2.0.0-beta4'
+    material = '1.2.0-alpha05'
+    dynamicanim = '1.0.0-alpha03'
+
+    dagger = "2.22.1"
+    rxAndroid = "2.1.1"
+    rxJava = "2.2.8"
+    rxKotlin = "2.4.0"
+    rxBinding = "3.0.0-alpha2"
+    moxyVersion = "2.0.2"
+    timber = "4.7.1"
+    retrofit2 = "2.5.0"
+    threetenabp = "1.1.1"
+    okhttp = "3.10.0"
+    cicerone = "5.0.0"
+    glade = "4.11.0"
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    //AndroidX
+    implementation "androidx.appcompat:appcompat:$androidX"
+    implementation "androidx.core:core-ktx:$androidX"
+    implementation "androidx.constraintlayout:constraintlayout:$constraint"
+    implementation "com.google.android.material:material:$material"
+
+    //Rx
+    implementation "io.reactivex.rxjava2:rxjava:$rxJava"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid"
+    implementation("io.reactivex.rxjava2:rxkotlin:$rxKotlin")
+    implementation "com.jakewharton.rxbinding3:rxbinding:$rxBinding"
+    implementation "com.jakewharton.rxbinding3:rxbinding-core:$rxBinding"
+    implementation "com.jakewharton.rxbinding3:rxbinding-material:$rxBinding"
+
+    //Moxy
+    implementation "com.github.moxy-community:moxy:$moxyVersion"
+    kapt "com.github.moxy-community:moxy-compiler:$moxyVersion"
+    implementation "com.github.moxy-community:moxy-android:$moxyVersion"
+    implementation "com.github.moxy-community:moxy-androidx:$moxyVersion"
+
+    //DI
+    implementation "com.google.dagger:dagger:$dagger"
+    kapt "com.google.dagger:dagger-compiler:$dagger"
+
+    //Navigation
+    implementation "ru.terrakok.cicerone:cicerone:$cicerone"
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit2"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit2"
+    implementation "com.squareup.retrofit2:converter-scalars:$retrofit2"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit2"
+    implementation "com.jakewharton.threetenabp:threetenabp:$threetenabp"
+
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$glade"
+    kapt "com.github.bumptech.glide:compiler:$glade"
+
+    //Log
+    implementation "com.jakewharton.timber:timber:$timber"
+}
